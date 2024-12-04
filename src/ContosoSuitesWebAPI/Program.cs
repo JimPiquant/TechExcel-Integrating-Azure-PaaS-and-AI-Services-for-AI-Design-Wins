@@ -8,6 +8,7 @@ using Microsoft.Data.SqlClient;
 using Azure.AI.OpenAI;
 using Azure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging; // Add this using directive
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,10 @@ builder.Services.AddSingleton<AzureOpenAIClient>((_) =>
 
 var app = builder.Build();
 
+// Add a log message at the start of the application
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("Tech Excel Application has started.");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -64,6 +69,7 @@ app.MapGet("/", async () =>
 app.MapGet("/Hotels", async () => 
 {
     var hotels = await app.Services.GetRequiredService<IDatabaseService>().GetHotels();
+    logger.LogInformation("Hotels endpoint was called.");
     return hotels;
 })
     .WithName("GetHotels")
