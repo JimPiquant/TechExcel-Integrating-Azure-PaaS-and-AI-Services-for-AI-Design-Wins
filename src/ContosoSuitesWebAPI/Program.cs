@@ -41,6 +41,8 @@ builder.Services.AddSingleton<AzureOpenAIClient>((_) =>
     return client;
 });
 
+Console.WriteLine(Environment.GetEnvironmentVariable("SQLAZURECONNSTR_ContosoSuites"));
+
 var app = builder.Build();
 
 // Add a log message at the start of the application
