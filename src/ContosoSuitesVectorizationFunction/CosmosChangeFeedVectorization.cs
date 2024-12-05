@@ -39,7 +39,7 @@ namespace ContosoSuites.Functions
                 throw new ArgumentNullException("EmbeddingDeploymentName", "EmbeddingDeploymentName is required to run this function.");
 
             _logger = loggerFactory.CreateLogger<CosmosChangeFeedVectorization>();
-            var oaiEndpoint = new Uri(endpointUrl);
+            var oaiEndpoint = new Uri(endpointUrl);  
             var credentials = new AzureKeyCredential(azureOpenAIKey);
             var openAIClient = new AzureOpenAIClient(oaiEndpoint, credentials);
             _embeddingClient = openAIClient.GetEmbeddingClient(deploymentName);   
